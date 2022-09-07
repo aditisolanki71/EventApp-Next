@@ -1,7 +1,7 @@
 import {Fragment} from "react";
 //import { useRouter } from "next/router";
 // import { getEventById } from "../../dummy-data";
-import { getEventById, getAllEvents} from "../../helpers/api-util"
+import { getEventById, getFeaturedEvents} from "../../helpers/api-util"
 import EventSummary from "../../components/event-detail/event-summary"
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventContent from "../../components/event-detail/event-content";
@@ -11,13 +11,13 @@ function EventDetailPage(props) {
    // const router = useRouter();
    // const eventId = router.query.eventId;
    // const event = getEventById(eventId)
-   const event = props.selectedEvent;
+   const event = props?.selectedEvent;
    console.log("event is",event);
    if(!event) {
       return (
-         <ErrorAlert>
-            <p>No event Found</p>
-         </ErrorAlert>
+         <div className="center">
+            <p>Loading...</p>
+         </div>
          )
    }
    return (
@@ -38,14 +38,14 @@ export async function getStaticProps(context) {
    console.log("event isss",event);
    return {
       props: {
-         selectedEvent: event
+         selectedEvent: event ? event : undefined
       }
    }
 }
 //doesn't know which eventid should be pre-generate
 export async function getStaticPaths() {
    console.log("get static paths")
-   const events = await getAllEvents();
+   const events = await getFeaturedEvents();
    const paths = events.map(e => ({ params: { eventId: e.id }}))
    console.log("paths",paths);
    return {
@@ -53,7 +53,11 @@ export async function getStaticPaths() {
       //    { params: { eventId: "e1" }}
       // ]
       paths: paths,
-      fallback: false
+      //more pages than prepared here
+      //fallback: true
+
+      //stick to the previous page till data don't come
+      fallback:"blocking"
    }
 }
 export default EventDetailPage;
