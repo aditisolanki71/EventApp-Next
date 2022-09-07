@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Button from "../ui/button"
 import classes from "./event-item.module.css"
 import DateIcon from "../icons/date-icon";
 import AddressIcon from "../icons/address-icon"
@@ -30,7 +30,11 @@ function EventItem(props) {
                </div>
             </div>
             <div className={classes.action}>
-               <Link href={exploreLink}>Explore Event</Link>
+               {/* <Link href={exploreLink}>Explore Event</Link> */}
+               <Button link={exploreLink}>
+                  <span>Explore Event</span>
+                  <span className={classes.icon}><ArrowRight/></span>
+               </Button>
             </div>
         </div> 
      </li>
