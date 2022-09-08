@@ -11,16 +11,32 @@ function FilteredEventsPage(props) {
    const router = useRouter();
    const filterData = router.query.slug;
    console.log("filter",filterData);
-   if(!filterData) {
-      return <p className="center">Loading...</p>
-   }
+
    const filterYear = filterData[0];
    const filterMonth = filterData[1];
    const numYear = +filterYear;
    const numMonth = +filterMonth;
+   const pageHeadData = (
+      <Head>
+      <title>Filtered Events</title>
+      <meta 
+         name="description" 
+         content={`All Events for ${numMonth}/${numYear}`}
+         />
+   </Head>
+   )
+   if(!filterData) {
+      return (
+         <Fragment>
+            {pageHeadData}
+            <p className="center">Loading...</p>
+         </Fragment>
+      )
+   }
    if(props.hasError) {
       return (
          <Fragment>
+            {pageHeadData}
             <ErrorAlert>
                <p>Invalid Filterr....</p>
             </ErrorAlert>
@@ -38,6 +54,7 @@ function FilteredEventsPage(props) {
    if(!filteredEvents || filteredEvents.length === 0) {
       return (
          <Fragment>
+            {pageHeadData}
             <ErrorAlert>
                <p>No Evets Found....</p>
             </ErrorAlert>
@@ -49,15 +66,8 @@ function FilteredEventsPage(props) {
    }
    const date = new Date(props.date.year, props.date.month - 1)
    return (
-      <Fragment>
-         <Head>
-            <title>Filtered Events</title>
-            <meta 
-               name="description" 
-               content={`All Events for ${numMonth}/${numYear}`}
-               />
-         </Head>
-      
+      <Fragment> 
+         {pageHeadData}
          <ResultsTitle date={date}/>
          <EventList events={filteredEvents}/>
       </Fragment>
