@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Button from "../ui/button"
 import classes from "./event-item.module.css"
 import DateIcon from "../icons/date-icon";
@@ -16,7 +17,10 @@ function EventItem(props) {
    return (
      <li className={classes.item}>
         {/* <img src={`/${image}`} alt={title} /> */}
-        <img src={'/'+ image} alt={title} />
+           {/* js create multiple version f image,optimize image size then image will be cache for future ref of same device */}
+           <Image src={'/'+ image} alt={title} width={250} height={220}/>
+     
+        {/* <img src={'/'+ image} alt={title} /> */}
         <div className={classes.content}>
            <div className={classes.summary}>
            <h2>Title:- {title}</h2>
