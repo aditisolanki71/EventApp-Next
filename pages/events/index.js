@@ -1,4 +1,6 @@
 // import { getAllEvents } from "../../dummy-data";
+import { Fragment } from "react";
+import Head from "next/head";
 import { getAllEvents } from "../../helpers/api-util";
 import EventList from "../../components/events/event-list";
 import EventsSearch from "../../components/events/events-search";
@@ -14,10 +16,17 @@ function EventPage(props) {
       router.push(fullPath);
    }
    return (
-      <div>
+      <Fragment>
+         <Head>
+            <title>All Events</title>
+            <meta 
+               name="description" 
+               content="Find a lot of great events that allow you to evolve..."
+               />
+         </Head>
          <EventsSearch onSearch={handleSearch}/>
          <EventList events={events}/>
-      </div>
+      </Fragment>
    )
 }
 

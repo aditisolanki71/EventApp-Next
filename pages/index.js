@@ -9,7 +9,7 @@ function HomePage(props) {
       {/* add html section,nextjs inject them into a head section */}
       <Head>
         <title>NextJS Events</title>
-        Meta is show up in serach result when your page
+        {/* Meta is show up in serach result when your page */}
         <meta 
           name="description" 
           content="Find a lot of great events that allow you to evolve..."
